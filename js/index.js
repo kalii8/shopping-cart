@@ -22,15 +22,62 @@ let cart = [];
 function item_create(test_item){
      $('<div>')
     .addClass('product')
+    .attr('id', test_item.name)
     .append('<img src="' + test_item.img_source + '">')
     .prependTo($('.products'))
+}
+
+function item_create_cart(test_item){
+    $('<div>')
+   .addClass('product')
+   .attr('id', test_item.name)
+   .append('<img src="' + test_item.img_source + '">')
+   .prependTo($('.cart'))
+}
+
+function update_shop(id){
+    $('#'+id).remove();
+}
+
+function move_to_cart(){
+    $('#cart').empty();
+    for (let i=0; i<cart.length; i++){
+        item_create_cart(cart[i]);
+    }
+
 }
 
 for (let i=0; i<shop.length; i++){
     item_create(shop[i]);
 }
 
-cart.push(shop[0]);
+
+
+//  for (let i=0; i<shop.length; i++){
+//      item_create(shop[i]);
+//  }
+
+$('.product').click(function(){
+    let test = $(this).attr('id');
+
+    for (let i=0; i<shop.length; i++){
+        if(test == shop[i].name){
+            cart.push(shop[i]);
+            shop.splice(i, 1)
+        }
+    }
+     update_shop(test);
+     move_to_cart();
+
+     
+  
+ })
+
+
+
+
+
+
 
 
 
